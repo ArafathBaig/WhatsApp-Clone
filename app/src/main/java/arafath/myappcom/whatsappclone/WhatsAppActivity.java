@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -25,8 +27,9 @@ import com.shashank.sony.fancytoastlib.FancyToast;
 import java.util.ArrayList;
 import java.util.List;
 
-public class WhatsAppActivity extends AppCompatActivity {
+public class WhatsAppActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
+    private ArrayList<String> list;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,11 +38,12 @@ public class WhatsAppActivity extends AppCompatActivity {
     setTitle("User Activity");
 
         final ListView listView = findViewById(R.id.listView);
-        final ArrayList<String> list = new ArrayList<>();
+        list = new ArrayList<>();
+
         final ArrayAdapter arrayAdapter = new ArrayAdapter(this,android.R.layout.simple_list_item_1,list);
 
         final SwipeRefreshLayout swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
-
+        listView.setOnItemClickListener(this);
 
         try{
             ParseQuery<ParseUser> query = ParseUser.getQuery();
@@ -66,6 +70,31 @@ public class WhatsAppActivity extends AppCompatActivity {
             @Override
             public void onRefresh() {
 
+                try{
+                    ParseQuery<ParseUser> query = ParseUser.getQuery();
+                    query.whereNotEqualTo("username",ParseUser.getCurrentUser().getUsername());
+                    query.whereNotContainedIn("username",list);
+                    query.findInBackground(new FindCallback<ParseUser>() {
+                        @Override
+                        public void done(List<ParseUser> objects, ParseException e) {
+                            if(objects.size() > 0 && e==null){
+                                for(ParseUser use : objects){
+                                    list.add(use.getUsername());
+                                }
+                                arrayAdapter.notifyDataSetChanged();
+                                if(swipeRefreshLayout.isRefreshing()){
+                                    swipeRefreshLayout.setRefreshing(false);
+                                }
+                            }else{
+                                if(swipeRefreshLayout.isRefreshing()){
+                                    swipeRefreshLayout.setRefreshing(false);
+                                }
+                            }
+                        }
+                    });
+                }catch(Exception e){
+
+                }
             }
         });
     }
@@ -103,5 +132,12 @@ public class WhatsAppActivity extends AppCompatActivity {
 
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Intent intent = new Intent(WhatsAppActivity.this,WhatsAppChat.class);
+        intent.putExtra("selectedUser",list.get(position));
+        startActivity(intent);
     }
 }
