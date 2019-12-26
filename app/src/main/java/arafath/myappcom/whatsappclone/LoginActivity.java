@@ -83,6 +83,7 @@ public class LoginActivity extends AppCompatActivity implements  View.OnClickLis
             case R.id.button2:
                 Intent intent = new Intent(LoginActivity.this,MainActivity.class);
                 startActivity(intent);
+                finish();
                 break;
         }
     }

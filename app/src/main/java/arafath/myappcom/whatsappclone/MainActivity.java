@@ -52,14 +52,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
 
         if(ParseUser.getCurrentUser() != null){
-            ParseUser.logOutInBackground(new LogOutCallback() {
-                @Override
-                public void done(ParseException e) {
-                    if(e!=null){
-                        Log.i("Checked",e.getMessage());
-                    }
-                }
-            });
+            transitionToMainActivity();
         }
 
         signInsign.setOnClickListener(this);
@@ -105,6 +98,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.logInbtn:
                 Intent intent = new Intent(MainActivity.this,LoginActivity.class);
                 startActivity(intent);
+                finish();
                 break;
         }
     }
