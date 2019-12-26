@@ -3,6 +3,7 @@ package arafath.myappcom.whatsappclone;
 import android.app.Application;
 
 import com.parse.Parse;
+import com.parse.ParseInstallation;
 
 public class App extends Application {
 
@@ -11,11 +12,12 @@ public class App extends Application {
         super.onCreate();
 
         Parse.initialize(new Parse.Configuration.Builder(this)
-                .applicationId(getString(R.string.back4app_app_id))
-                // if defined
-                .clientKey("CG2HHiVGD6zxwJCPApsz0pJbN8Edo1KziAavpmYS")
-                .server("jyePPrX8nBIvp5X2PhziJQjbHC3NVID4pROumSTV")
+                .applicationId("hrHgfr8rYPPQyaQ4Zyx4BVIZLHYi2s9a8E7cCU4s")
+                .clientKey("NyyaUvCBtBLzYILs81tsme0A4gxfpPIag7ltuHj7")
+                .server("https://parseapi.back4app.com/")
                 .build()
         );
+
+        
     }
 }

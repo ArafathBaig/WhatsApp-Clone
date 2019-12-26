@@ -13,7 +13,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".LoginActivity"></activity>
+        <activity android:name=".WhatsAppActivity"></activity>
+        <activity android:name=".LoginActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,10 +28,10 @@
             android:value="https://parseapi.back4app.com/" />
         <meta-data
             android:name="com.parse.APPLICATION_ID"
-            android:value="jyePPrX8nBIvp5X2PhziJQjbHC3NVID4pROumSTV" />
+            android:value="hrHgfr8rYPPQyaQ4Zyx4BVIZLHYi2s9a8E7cCU4s" />
         <meta-data
             android:name="com.parse.CLIENT_KEY"
-            android:value="CG2HHiVGD6zxwJCPApsz0pJbN8Edo1KziAavpmYS" />
+            android:value="NyyaUvCBtBLzYILs81tsme0A4gxfpPIag7ltuHj7" />
     </application>
 
 </manifest>
